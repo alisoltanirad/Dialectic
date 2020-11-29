@@ -36,20 +36,20 @@ class Invert(Sentence):
     pass
 
 
-class Conjunction(Sentence):
-    pass
+class Conjunction(BinarySentence):
+    operator = '∧'
 
 
-class Disjunction(Sentence):
-    pass
+class Disjunction(BinarySentence):
+    operator = '∨'
 
 
-class Implication(Sentence):
-    pass
+class Implication(BinarySentence):
+    operator = '→'
 
 
-class Equality(Sentence):
-    pass
+class Equality(BinarySentence):
+    operator = '↔'
 
 
 def main():
