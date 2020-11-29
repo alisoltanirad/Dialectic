@@ -56,17 +56,29 @@ class Invert(Sentence):
 class Conjunction(BinarySentence):
     operator = '∧'
 
+    def validate(self, set):
+        return self.lchild.validate(set) and self.rchild.validate(set)
+
 
 class Disjunction(BinarySentence):
     operator = '∨'
+
+    def validate(self, set):
+        return self.lchild.validate(set) or self.rchild.validate(set)
 
 
 class Implication(BinarySentence):
     operator = '→'
 
+    def validate(self, set):
+        return not self.lchild.validate(set) or self.rchild.validate(set)
+
 
 class Equality(BinarySentence):
     operator = '↔'
+
+    def validate(self, set):
+        return self.lchild.validate(set) is self.rchild.validate(set)
 
 
 def main():
