@@ -3,7 +3,7 @@
 class Sentence:
 
     def __invert__(self):
-        return Inverse(self)
+        return Invert(self)
 
     def __and__(self, other):
         return Conjunction(self, other)
@@ -18,11 +18,21 @@ class Sentence:
         return Equality(self, other)
 
 
+class BinarySentence(Sentence):
+
+    def __init__(self, lchild, rchild):
+        self.lchild = lchild
+        self.rchild = rchild
+
+    def __str__(self):
+        return '(' + self.lchild + ' ' + self.operator + ' ' + self.rchild +  ')'
+
+
 class Atomic(Sentence):
     pass
 
 
-class Inverse(Sentence):
+class Invert(Sentence):
     pass
 
 
