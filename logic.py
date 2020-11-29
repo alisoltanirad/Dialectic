@@ -29,7 +29,15 @@ class BinarySentence(Sentence):
 
 
 class Atomic(Sentence):
-    pass
+
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return str(self.name)
+
+    def validate(self, set):
+        return self in set
 
 
 class Invert(Sentence):
