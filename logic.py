@@ -41,7 +41,16 @@ class Atomic(Sentence):
 
 
 class Invert(Sentence):
-    pass
+    operator = '¬'
+
+    def __init__(self, child):
+        self.child = child
+
+    def __str__(self):
+        return self.operator + str(self.child)
+
+    def validate(self, set):
+        return not self.child.validate(set)
 
 
 class Conjunction(BinarySentence):
