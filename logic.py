@@ -25,7 +25,9 @@ class BinarySentence(Sentence):
         self.rchild = rchild
 
     def __str__(self):
-        return '(' + self.lchild + ' ' + self.operator + ' ' + self.rchild +  ')'
+        return '(' + str(self.lchild) + ' ' + \
+               self.operator + \
+               ' ' + str(self.rchild) +  ')'
 
 
 class Atomic(Sentence):
@@ -35,6 +37,9 @@ class Atomic(Sentence):
 
     def __str__(self):
         return str(self.name)
+
+    def __hash__(self):
+        return hash(self.name)
 
     def validate(self, set):
         return self in set
@@ -49,6 +54,9 @@ class Invert(Sentence):
     def __str__(self):
         return self.operator + str(self.child)
 
+    def __hash__(self):
+        return hash(not self.child)
+
     def validate(self, set):
         return not self.child.validate(set)
 
@@ -59,12 +67,18 @@ class Conjunction(BinarySentence):
     def validate(self, set):
         return self.lchild.validate(set) and self.rchild.validate(set)
 
+    def __hash__(self):
+        return hash(self.lchild and self.rchild)
+
 
 class Disjunction(BinarySentence):
     operator = '∨'
 
     def validate(self, set):
         return self.lchild.validate(set) or self.rchild.validate(set)
+
+    def __hash__(self):
+        return hash(self.lchild or self.rchild)
 
 
 class Implication(BinarySentence):
@@ -73,12 +87,19 @@ class Implication(BinarySentence):
     def validate(self, set):
         return not self.lchild.validate(set) or self.rchild.validate(set)
 
+    def __hash__(self):
+        return hash(not self.lchild or self.rchild)
+
 
 class Equality(BinarySentence):
     operator = '↔'
 
     def validate(self, set):
         return self.lchild.validate(set) is self.rchild.validate(set)
+
+    def __hash__(self):
+        return hash((self.lchild and self.rchild) or
+                    (not self.lchild and not self.rchild))
 
 
 def main():
