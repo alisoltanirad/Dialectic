@@ -17,6 +17,10 @@ class Sentence:
     def __eq__(self, other):
         return Equality(self, other)
 
+    def infer(self, set):
+        simple_set = self.simplify(set)
+        return self.validate(set)
+
 
 class BinarySentence(Sentence):
 
