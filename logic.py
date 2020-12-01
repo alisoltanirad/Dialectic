@@ -58,52 +58,54 @@ class Invert(Sentence):
         return hash(not self.child)
 
     def validate(self, set):
-        return not self.child.validate(set)
+        return (not self.child) in set
 
 
 class Conjunction(BinarySentence):
     operator = '∧'
 
-    def validate(self, set):
-        return self.lchild.validate(set) and self.rchild.validate(set)
-
     def __hash__(self):
         return hash(self.lchild and self.rchild)
+
+    def validate(self, set):
+        return self.lchild.validate(set) and self.rchild.validate(set)
 
 
 class Disjunction(BinarySentence):
     operator = '∨'
 
-    def validate(self, set):
-        return self.lchild.validate(set) or self.rchild.validate(set)
-
     def __hash__(self):
         return hash(self.lchild or self.rchild)
+
+    def validate(self, set):
+        return self.lchild.validate(set) or self.rchild.validate(set)
 
 
 class Implication(BinarySentence):
     operator = '→'
 
-    def validate(self, set):
-        return not self.lchild.validate(set) or self.rchild.validate(set)
-
     def __hash__(self):
         return hash(not self.lchild or self.rchild)
+
+    def validate(self, set):
+        return not self.lchild.validate(set) or self.rchild.validate(set)
 
 
 class Equality(BinarySentence):
     operator = '↔'
 
-    def validate(self, set):
-        return self.lchild.validate(set) is self.rchild.validate(set)
-
     def __hash__(self):
         return hash((self.lchild and self.rchild) or
                     (not self.lchild and not self.rchild))
 
+    def validate(self, set):
+        return self.lchild.validate(set) is self.rchild.validate(set)
+
 
 def main():
-    pass
+    a = Atomic('a')
+    b = Atomic('b')
+    print((a & b).validate({(a & b)}))
 
 
 if __name__ == '__main__':
