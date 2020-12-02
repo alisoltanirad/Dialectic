@@ -25,13 +25,20 @@ class Sentence:
         simple_set = set()
         while input_set:
             sentence = input_set.pop()
+            print(sentence)
 
             if type(sentence) is (Atomic or Invert):
                 simple_set.add(sentence)
-                
+
             if type(sentence) is Conjunction:
                 input_set.add(sentence.lchild)
                 input_set.add(sentence.rchild)
+
+            if type(sentence) is Disjunction:
+                if (~sentence.lchild).validate(input_set | simple_set):
+                    input_set.add(sentence.rchild)
+                if (~sentence.rchild).validate(input_set | simple_set):
+                    input_set.add(sentence.lchild)
 
         return simple_set
 
@@ -123,7 +130,7 @@ class Equality(BinarySentence):
 def main():
     a = Atomic('a')
     b = Atomic('b')
-    print(a.simplify({(a & b)}))
+    print(a.simplify({(a | b), ~a}))
 
 
 if __name__ == '__main__':
