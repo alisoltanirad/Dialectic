@@ -25,20 +25,34 @@ class Sentence:
         simple_set = set()
         while input_set:
             sentence = input_set.pop()
-            print(sentence)
 
-            if type(sentence) is (Atomic or Invert):
+            if (type(sentence) is Atomic) or (type(sentence) is Invert):
                 simple_set.add(sentence)
 
-            if type(sentence) is Conjunction:
+            elif type(sentence) is Conjunction:
                 input_set.add(sentence.lchild)
                 input_set.add(sentence.rchild)
 
-            if type(sentence) is Disjunction:
+            elif type(sentence) is Disjunction:
                 if (~sentence.lchild).validate(input_set | simple_set):
                     input_set.add(sentence.rchild)
-                if (~sentence.rchild).validate(input_set | simple_set):
+                elif (~sentence.rchild).validate(input_set | simple_set):
                     input_set.add(sentence.lchild)
+
+            elif type(sentence) is Implication:
+                if sentence.lchild.validate(input_set | simple_set):
+                    input_set.add(sentence.rchild)
+
+            elif type(sentence) is Equality:
+                if sentence.lchild.validate(input_set | simple_set):
+                    input_set.add(sentence.rchild)
+                elif sentence.rchild.validate(input_set | simple_set):
+                    input_set.add(sentence.lchild)
+                elif (~sentence.lchild).validate(input_set | simple_set):
+                    input_set.add(~sentence.rchild)
+                elif (~sentence.rchild).validate(input_set | simple_set):
+                    input_set.add(~sentence.lchild)
+
 
         return simple_set
 
@@ -83,7 +97,7 @@ class Invert(Sentence):
         return hash(not self.child)
 
     def validate(self, set):
-        return (not self.child) in set
+        return not self.child in set
 
 
 class Conjunction(BinarySentence):
@@ -130,7 +144,7 @@ class Equality(BinarySentence):
 def main():
     a = Atomic('a')
     b = Atomic('b')
-    print(a.simplify({(a | b), ~a}))
+    print(a.simplify({}))
 
 
 if __name__ == '__main__':
