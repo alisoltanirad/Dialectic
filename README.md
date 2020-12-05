@@ -1,1 +1,3 @@
-# Logic
+# Dialectic
+
+Mathematical logic implementation using python.
