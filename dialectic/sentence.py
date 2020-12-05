@@ -18,7 +18,7 @@ class Sentence:
         return Equality(self, other)
 
     def parse(self):
-        input_set = set(self)
+        input_set = {self}
         parsed_set = set()
         while input_set:
             sentence = input_set.pop()
