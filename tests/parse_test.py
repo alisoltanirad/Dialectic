@@ -13,3 +13,7 @@ class ParseTest(unittest.TestCase):
 
     def test_atomic_parse(self):
         assert self.a.parse() == {'a'}
+
+
+if __name__ == '__main__':
+    unittest.main()
