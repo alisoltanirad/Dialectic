@@ -111,7 +111,7 @@ class SentenceSet:
         return str(self.__set)
 
     def parse(self):
-        input_set = self.__set
+        input_set = self.__set.copy()
         parsed_set = set()
         while input_set:
             sentence = input_set.pop()
