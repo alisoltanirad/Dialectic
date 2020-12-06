@@ -15,7 +15,7 @@ class ParseTest(unittest.TestCase):
         assert SentenceSet({self.a}).parse() == {'a'}
 
     def test_invert_parse(self):
-        assert SentenceSet({(~self.a)}).parse() == {'~a'}
+        assert SentenceSet({(~self.a)}).parse() == {~self.a}
 
     def test_conjunction_parse(self):
         assert SentenceSet({(self.a & self.b)}).parse() == {'a', 'b'}
