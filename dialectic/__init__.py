@@ -1,3 +1,3 @@
 from .sentence import (
-    Atomic, Invert, Conjunction, Disjunction, Implication, Equality
+    SentenceSet, Atomic, Invert, Conjunction, Disjunction, Implication, Equality
 )

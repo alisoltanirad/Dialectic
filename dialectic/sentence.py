@@ -17,41 +17,6 @@ class Sentence:
     def __eq__(self, other):
         return Equality(self, other)
 
-    def parse(self):
-        input_set = {self}
-        parsed_set = set()
-        while input_set:
-            sentence = input_set.pop()
-
-            if (type(sentence) is Atomic) or (type(sentence) is Invert):
-                parsed_set.add(sentence)
-
-            elif type(sentence) is Conjunction:
-                input_set.add(sentence.lchild)
-                input_set.add(sentence.rchild)
-
-            elif type(sentence) is Disjunction:
-                if (~sentence.lchild).validate(input_set | parsed_set):
-                    input_set.add(sentence.rchild)
-                elif (~sentence.rchild).validate(input_set | parsed_set):
-                    input_set.add(sentence.lchild)
-
-            elif type(sentence) is Implication:
-                if sentence.lchild.validate(input_set | parsed_set):
-                    input_set.add(sentence.rchild)
-
-            elif type(sentence) is Equality:
-                if sentence.lchild.validate(input_set | parsed_set):
-                    input_set.add(sentence.rchild)
-                elif sentence.rchild.validate(input_set | parsed_set):
-                    input_set.add(sentence.lchild)
-                elif (~sentence.lchild).validate(input_set | parsed_set):
-                    input_set.add(~sentence.rchild)
-                elif (~sentence.rchild).validate(input_set | parsed_set):
-                    input_set.add(~sentence.lchild)
-
-        return parsed_set
-
 
 class BinarySentence(Sentence):
 
@@ -135,3 +100,47 @@ class Equality(BinarySentence):
 
     def validate(self, set):
         return self.lchild.validate(set) is self.rchild.validate(set)
+
+
+class SentenceSet:
+
+    def __init__(self, set):
+        self.__set = set
+
+    def __str__(self):
+        return self.__set
+
+    def parse(self):
+        input_set = self.__set
+        parsed_set = set()
+        while input_set:
+            sentence = input_set.pop()
+
+            if (type(sentence) is Atomic) or (type(sentence) is Invert):
+                parsed_set.add(sentence)
+
+            elif type(sentence) is Conjunction:
+                input_set.add(sentence.lchild)
+                input_set.add(sentence.rchild)
+
+            elif type(sentence) is Disjunction:
+                if (~sentence.lchild).validate(input_set | parsed_set):
+                    input_set.add(sentence.rchild)
+                elif (~sentence.rchild).validate(input_set | parsed_set):
+                    input_set.add(sentence.lchild)
+
+            elif type(sentence) is Implication:
+                if sentence.lchild.validate(input_set | parsed_set):
+                    input_set.add(sentence.rchild)
+
+            elif type(sentence) is Equality:
+                if sentence.lchild.validate(input_set | parsed_set):
+                    input_set.add(sentence.rchild)
+                elif sentence.rchild.validate(input_set | parsed_set):
+                    input_set.add(sentence.lchild)
+                elif (~sentence.lchild).validate(input_set | parsed_set):
+                    input_set.add(~sentence.rchild)
+                elif (~sentence.rchild).validate(input_set | parsed_set):
+                    input_set.add(~sentence.lchild)
+
+        return parsed_set
