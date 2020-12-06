@@ -108,7 +108,7 @@ class SentenceSet:
         self.__set = set
 
     def __str__(self):
-        return self.__set
+        return str(self.__set)
 
     def parse(self):
         input_set = self.__set
