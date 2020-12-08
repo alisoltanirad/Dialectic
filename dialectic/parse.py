@@ -7,7 +7,10 @@ def parse(sentence_list):
     while input_list:
         sentence = input_list.pop()
 
-        if (type(sentence) is Atomic) or (type(sentence) is Invert):
+        if (type(sentence) is Atomic):
+            parsed_list.append(sentence)
+
+        if (type(sentence) is Invert):
             parsed_list.append(sentence)
 
         elif type(sentence) is Conjunction:
