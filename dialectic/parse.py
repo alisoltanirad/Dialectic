@@ -1,8 +1,8 @@
 from .sentence import *
 
 
-def parse(set):
-    input_set = set.copy()
+def parse(sentence_set):
+    input_set = sentence_set.copy()
     parsed_set = set()
     while input_set:
         sentence = input_set.pop()
