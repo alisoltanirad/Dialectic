@@ -1,7 +1,7 @@
 import unittest
 
 from dialectic import (
-    Atomic, Invert, Conjunction, Disjunction, Implication, Equality, SentenceSet
+    parse, Atomic, Invert, Conjunction, Disjunction, Implication, Equality
 )
 
 
@@ -12,46 +12,46 @@ class ParseTest(unittest.TestCase):
     c = Atomic('c')
 
     def test_atomic_parse(self):
-        assert SentenceSet({self.a}).parse() == {'a'}
+        assert parse({self.a}) == {'a'}
 
     def test_invert_parse(self):
-        assert SentenceSet({(~self.a)}).parse() == {~self.a}
+        assert parse({(~self.a)}) == {~self.a}
 
     def test_conjunction_parse(self):
-        assert SentenceSet({(self.a & self.b)}).parse() == {'a', 'b'}
+        assert parse({(self.a & self.b)}) == {'a', 'b'}
 
     def test_disjunction_parse_1(self):
-        assert SentenceSet({(self.a | self.b)}).parse() == {}
+        assert parse({(self.a | self.b)}) == {}
 
     def test_disjunction_parse_2(self):
-        assert SentenceSet({(self.a | self.b), self.a}).parse() == {'a'}
+        assert parse({(self.a | self.b), self.a}) == {'a'}
 
     def test_disjunction_parse_3(self):
-        assert SentenceSet({(self.a | self.b), (~self.a)}).parse() == {'b'}
+        assert parse({(self.a | self.b), (~self.a)}) == {'b'}
 
     def test_implication_parse_1(self):
-        assert SentenceSet({(self.a > self.b)}).parse() == {}
+        assert parse({(self.a > self.b)}) == {}
 
     def test_implication_parse_2(self):
-        assert SentenceSet({(self.a > self.b), self.b}).parse() == {'b'}
+        assert parse({(self.a > self.b), self.b}) == {'b'}
 
     def test_implication_parse_3(self):
-        assert SentenceSet({(self.a > self.b), self.a}).parse() == {'a', 'b'}
+        assert parse({(self.a > self.b), self.a}) == {'a', 'b'}
 
     def test_equality_parse_1(self):
-        assert SentenceSet({(self.a == self.b)}).parse() == {}
+        assert parse({(self.a == self.b)}) == {}
 
     def test_equality_parse_2(self):
-        assert SentenceSet({(self.a == self.b), self.a}).parse() == {'a', 'b'}
+        assert parse({(self.a == self.b), self.a}) == {'a', 'b'}
 
     def test_equality_parse_3(self):
-        assert SentenceSet({(self.a == self.b), self.b}).parse() == {'a', 'b'}
+        assert parse({(self.a == self.b), self.b}) == {'a', 'b'}
 
     def test_equality_parse_4(self):
-        assert SentenceSet({(self.a == self.b), (~self.a)}).parse() == {}
+        assert parse({(self.a == self.b), (~self.a)}) == {}
 
     def test_equality_parse_5(self):
-        assert SentenceSet({(self.a == self.b), (~self.b)}).parse() == {}
+        assert parse({(self.a == self.b), (~self.b)}) == {}
 
 
 if __name__ == '__main__':
