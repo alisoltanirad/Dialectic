@@ -5,8 +5,8 @@ with open("README.md", "r") as fh:
 
 setup(
     name="dialectic",
-    version="0.1.11",
-    description="mathematical logic",
+    version="0.2.0",
+    description="Mathematical Logic",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/virtualchamber/Tingle",
