@@ -3,7 +3,11 @@
 class Sentence:
 
     def __invert__(self):
-        return Invert(self)
+        if type(self) is Invert:
+            return self.child
+        else:
+            return Invert(self)
+
 
     def __and__(self, other):
         return Conjunction(self, other)
@@ -50,10 +54,6 @@ class Invert(Sentence):
 
     def __init__(self, child):
         self.child = child
-        if type(self.child) is Invert:
-            self.value = self.child.child
-        else:
-            self.value = ~self.child
 
     def __str__(self):
         return self.operator + str(self.child)
@@ -62,7 +62,10 @@ class Invert(Sentence):
         return hash(not self.child)
 
     def validate(self, set):
-        return self.value in set
+        if type(self.child) is Atomic:
+            return (~self.child) in set
+        else:
+            return not self.child.validate(set)
 
 
 class Conjunction(BinarySentence):
