@@ -1,3 +1,4 @@
 from .sentence import (
-    SentenceSet, Atomic, Invert, Conjunction, Disjunction, Implication, Equality
+    Atomic, Invert, Conjunction, Disjunction, Implication, Equality
 )
+from .parse import parse
