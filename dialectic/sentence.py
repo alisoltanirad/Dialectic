@@ -58,7 +58,7 @@ class Invert(Sentence):
         return hash(not self.child)
 
     def validate(self, set):
-        return (not self.child) in set
+        return (~self.child) in set
 
 
 class Conjunction(BinarySentence):
@@ -88,7 +88,7 @@ class Implication(BinarySentence):
         return hash(not self.lchild or self.rchild)
 
     def validate(self, set):
-        return not self.lchild.validate(set) or self.rchild.validate(set)
+        return (~self.lchild.validate(set)) or self.rchild.validate(set)
 
 
 class Equality(BinarySentence):
@@ -100,7 +100,7 @@ class Equality(BinarySentence):
 
     def validate(self, set):
         return (
-            (self.lchild.validate(set)) == True and (self.rchild.validate(set)) == True
+            self.lchild.validate(set) and self.rchild.validate(set)
         ) or (
-            ((~self.lchild).validate(set)) == True and ((~self.rchild).validate(set)) == True
+            (~self.lchild).validate(set) and (~self.rchild).validate(set)
         )
