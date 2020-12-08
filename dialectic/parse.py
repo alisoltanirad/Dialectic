@@ -1,7 +1,7 @@
 from .sentence import *
 
 
-def parse(sentence_list):
+def parse_sentences(sentence_list):
     input_list = sentence_list.copy()
     parsed_list = []
     while input_list:

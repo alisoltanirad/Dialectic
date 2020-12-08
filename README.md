@@ -37,6 +37,6 @@ equality = (a == b)
 disjunction.validate({a})
 
 # Parsing a sentence list
-from dialectic import parse
-parsed_set = parse([implication, a])
+from dialectic import parse_sentences
+parsed_set = parse_sentences([implication, a])
 ```
