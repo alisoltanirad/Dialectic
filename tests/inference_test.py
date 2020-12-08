@@ -10,8 +10,11 @@ class InferenceTest(unittest.TestCase):
     def test_is_valid_argument(self):
         pass
 
-    def test_is_tautology_true(self):
+    def test_is_tautology_true_1(self):
         assert Inference((self.a | (~self.a))).is_tautology() == True
+
+    def test_is_tautology_true_2(self):
+        assert Inference(((~self.a) | self.a)).is_tautology() == True
 
     def test_is_tautology_false_1(self):
         assert Inference((self.a | self.b)).is_tautology() == False
