@@ -58,7 +58,7 @@ class Invert(Sentence):
         return hash(not self.child)
 
     def validate(self, set):
-        return not self.child in set
+        return (not self.child) in set
 
 
 class Conjunction(BinarySentence):
