@@ -14,7 +14,7 @@ class Inference:
 
     def is_tautology(self):
         if type(self.conclusion) is Disjunction:
-            if self.conclusion.lchild is ~self.conclusion.rchild:
+            if self.conclusion.lchild.validate(set(~self.conclusion.rchild)):
                 return True
         return False
 
