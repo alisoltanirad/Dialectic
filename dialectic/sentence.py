@@ -99,4 +99,8 @@ class Equality(BinarySentence):
                     (not self.lchild and not self.rchild))
 
     def validate(self, set):
-        return self.lchild.validate(set) is self.rchild.validate(set)
+        return (
+            (self.lchild.validate(set)) == True and (self.rchild.validate(set)) == True
+        ) or (
+            ((~self.lchild).validate(set)) == True and   ((~self.rchild).validate(set)) == True
+        )
