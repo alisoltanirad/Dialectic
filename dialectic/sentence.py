@@ -102,5 +102,5 @@ class Equality(BinarySentence):
         return (
             (self.lchild.validate(set)) == True and (self.rchild.validate(set)) == True
         ) or (
-            ((~self.lchild).validate(set)) == True and   ((~self.rchild).validate(set)) == True
+            ((~self.lchild).validate(set)) == True and ((~self.rchild).validate(set)) == True
         )
