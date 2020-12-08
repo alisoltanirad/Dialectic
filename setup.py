@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="dialectic",
-    version="0.3.0a2",
+    version="0.3.0a3",
     description="Mathematical Logic",
     long_description=long_description,
     long_description_content_type="text/markdown",
