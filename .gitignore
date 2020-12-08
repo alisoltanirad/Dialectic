@@ -4,3 +4,4 @@ dialectic.egg-info/
 dist/
 dialectic/__pycache__/
 tests/__pycache__/
+venv/
