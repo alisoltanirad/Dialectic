@@ -50,15 +50,19 @@ class Invert(Sentence):
 
     def __init__(self, child):
         self.child = child
+        if type(self.child) is Invert:
+            self.value = self.child.child
+        else:
+            self.value = ~self.child
 
     def __str__(self):
         return self.operator + str(self.child)
 
     def __hash__(self):
-        return hash(not self.child)
+        return hash(self.value)
 
     def validate(self, set):
-        return (~self.child) in set
+        return self.value in set
 
 
 class Conjunction(BinarySentence):
