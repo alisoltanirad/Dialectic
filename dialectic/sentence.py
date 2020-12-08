@@ -1,5 +1,3 @@
-# https://github.com/alisoltanirad/Logic.git
-
 class Sentence:
 
     def __invert__(self):
