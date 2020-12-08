@@ -59,7 +59,7 @@ class Invert(Sentence):
         return self.operator + str(self.child)
 
     def __hash__(self):
-        return hash(self.value)
+        return hash(not self.child)
 
     def validate(self, set):
         return self.value in set
