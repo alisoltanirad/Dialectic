@@ -49,8 +49,23 @@ class InferenceTest(unittest.TestCase):
     def test_contingent_false_2(self):
         assert Inference((self.a & (~self.a))).is_contingent() == False
 
-    def test_is_contradictory_list(self):
-        pass
+    def test_is_contradictory_list_true_1(self):
+        assert is_contradictory([self.a, (~self.a)]) == True
+
+    def test_is_contradictory_list_true_2(self):
+        assert is_contradictory([self.a, self.b, (~self.a)]) == True
+
+    def test_is_contradictory_list_true_3(self):
+        assert is_contradictory([(~self.a), (~self.b), self.a]) == True
+
+    def test_is_contradictory_list_true_4(self):
+        assert is_contradictory([(~self.a), (self.b & self.a)]) == True
+
+    def test_is_contradictory_list_false_1(self):
+        assert is_contradictory([self.a, (~self.b)]) == False
+
+    def test_is_contradictory_list_false_2(self):
+        assert is_contradictory([(self.a | self.b), (~self.b)]) == False
 
 
 if __name__ == '__main__':
