@@ -57,11 +57,11 @@ class Invert(Sentence):
         return self.operator + str(self.child)
 
     def __hash__(self):
-        return hash(not self.child)
+        return hash(self)
 
     def validate(self, set):
         if type(self.child) is Atomic:
-            return (~self.child) in set
+            return self in set
         else:
             return not self.child.validate(set)
 
