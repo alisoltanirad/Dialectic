@@ -30,6 +30,6 @@ class Inference:
 def is_contradictory(sentence_list):
     parsed_sentences = parse_sentences(sentence_list)
     for sentence in parsed_sentences:
-        if ~sentence in parsed_sentences:
+        if (~sentence).validate(set(parsed_sentences)):
             return True
     return False
