@@ -8,11 +8,20 @@ class ParseTest(unittest.TestCase):
     a = Atomic('a')
     b = Atomic('b')
 
-    def test_atomic_parse(self):
-        assert parse_sentences([self.a]) == {'a'}
+    def test_atomic_parse_1(self):
+        assert parse_sentences([self.a]) == {self.a}
+
+    def test_atomic_parse_2(self):
+        assert parse_sentences([self.a, self.b]) == {self.a, self.b}
+
+    def test_invert_parse_1(self):
+        assert parse_sentences([(~self.a)]) == {~self.a}
 
     def test_invert_parse_2(self):
-        assert parse_sentences([(~self.a)]) == {~self.a}
+        assert parse_sentences([(~self.a), self.b]) == {~self.a, self.b}
+
+    def test_invert_parse_2(self):
+        assert parse_sentences([(~self.a), (~self.b)]) == {~self.a, ~self.b}
 
     def test_conjunction_parse(self):
         assert parse_sentences([(self.a & self.b)]) == {self.a, self.b}
