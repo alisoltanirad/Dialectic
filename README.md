@@ -2,7 +2,7 @@
 
 Mathematical logic implementation using python.
 
-### Installation
+### Install
 
 ```
 pip install dialectic
@@ -11,10 +11,9 @@ pip install dialectic
 ### Usage
 
 ```python
-# Import Atomic class
 from dialectic import Atomic
 
-# Build Atomic objects
+# Atomic objects
 a = Atomic('a')
 b = Atomic('b')
 
@@ -34,9 +33,18 @@ implication = (a > b)
 equality = (a == b)
 
 # Validation with given sentence set
-disjunction.validate({a})
+implication.validate({a, b})
 
 # Parsing a sentence list
 from dialectic import parse_sentences
+
 parsed_set = parse_sentences([implication, a])
+
+# Inference
+from dialectic import Inference
+
+is_valid = Inference((a > b), [b]).is_valid_argument()
+is_tautology = Inference((a | ~a)).is_tautology()
+is_contradictory = Inference((a & ~a)).is_contradictory()
+is_contingent = Inference((a & b)).is_contingent()
 ```
