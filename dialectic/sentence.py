@@ -61,7 +61,7 @@ class Invert(Sentence):
 
     def validate(self, set):
         if type(self.child) is Atomic:
-            return self in set
+            return not self.child in set
         else:
             return not self.child.validate(set)
 
