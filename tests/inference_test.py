@@ -7,8 +7,71 @@ class InferenceTest(unittest.TestCase):
     a = Atomic('a')
     b = Atomic('b')
 
-    def test_is_valid_argument(self):
-        pass
+    def test_is_valid_argument_true_1(self):
+        assert Inference(
+            self.a, [(self.a & self.b)]
+        ).is_valid_argument() == True
+
+    def test_is_valid_argument_true_2(self):
+        assert Inference(
+            self.b, [(self.a > self.b), self.a]
+        ).is_valid_argument() == True
+
+    def test_is_valid_argument_true_3(self):
+        assert Inference(
+            self.a, [(self.a == self.b), self.b]
+        ).is_valid_argument() == False
+
+    def test_is_valid_argument_true_4(self):
+        assert Inference(
+            (self.a | self.b), [self.a]
+        ).is_valid_argument() == True
+
+    def test_is_valid_argument_true_5(self):
+        assert Inference(
+            (self.a > self.b), [self.b]
+        ).is_valid_argument() == True
+
+    def test_is_valid_argument_true_6(self):
+        assert Inference(
+            (self.a & self.b), [self.a, self.b]
+        ).is_valid_argument() == True
+
+    def test_is_valid_argument_false_1(self):
+        assert Inference(
+            self.a, [self.b]
+        ).is_valid_argument() == False
+
+    def test_is_valid_argument_false_2(self):
+        assert Inference(
+            self.a, [(self.a | self.b)]
+        ).is_valid_argument() == False
+
+    def test_is_valid_argument_false_3(self):
+        assert Inference(
+            self.a, [(self.a > self.b)]
+        ).is_valid_argument() == False
+
+    def test_is_valid_argument_false_4(self):
+        assert Inference(
+            self.a, [(self.a == self.b)]
+        ).is_valid_argument() == False
+
+    def test_is_valid_argument_false_5(self):
+        assert Inference(
+            (self.a & self.b), [(self.a | self.b)]
+        ).is_valid_argument() == False
+
+    def test_is_valid_argument_false_7(self):
+        assert Inference(
+            (self.a > self.b), [self.a]
+        ).is_valid_argument() == False
+
+
+    def test_is_valid_argument_false_8(self):
+        assert Inference(
+            (self.a | self.b), [(self.a == self.b)]
+        ).is_valid_argument() == False
 
     def test_is_tautology_true_1(self):
         assert Inference((self.a | (~self.a))).is_tautology() == True
