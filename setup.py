@@ -9,7 +9,7 @@ setup(
     description="Mathematical Logic",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/virtualchamber/Tingle",
+    url="https://github.com/alisoltanirad/dialectic",
     author="Ali Soltani Rad",
     author_email="soltaniradali@gmail.com",
     packages=find_packages(),
