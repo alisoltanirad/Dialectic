@@ -1,11 +1,11 @@
 # Dialectic
 
-Mathematical logic implementation using python.
+Mathematical logic implementation using Python.
 
 ### Install
 
 ```
-pip install dialectic
+pip install --upgrade dialectic
 ```
 
 ### Usage
@@ -14,8 +14,8 @@ pip install dialectic
 from dialectic import Atomic
 
 # Atomic objects
-a = Atomic('a')
-b = Atomic('b')
+a = Atomic("a")
+b = Atomic("b")
 
 # Invert
 invert = ~a
